@@ -3,7 +3,7 @@ import { controller } from '../controller';
 
 const contactsRouter = Router();
 
-contactsRouter.get('/', controller.getAll)
+contactsRouter.get('/', controller.getContacts)
 
 
 export {contactsRouter};

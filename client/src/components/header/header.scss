@@ -1,0 +1,10 @@
+.header__link {
+  color: #000000;
+  text-decoration: none;
+
+  &:hover, &-active {
+    color: blue;
+    font-weight: bold;
+  }
+}
+

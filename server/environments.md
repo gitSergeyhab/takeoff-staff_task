@@ -1,0 +1,7 @@
+DB_HOST - домен для подключения к БД (localhost)
+DB_PORT - порт для подключения к БД (8889)
+DB_NAME - название базы данных (takeoff_staff)
+DB_USER - имя пользователя (root)
+DB_PASSWORD - пароль (root)
+SECRET_SESSION - для сессий (secret-session)
+SQL_DIALECT - система БД (mysql)
