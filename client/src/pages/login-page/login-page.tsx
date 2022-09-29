@@ -1,63 +1,16 @@
 
 import { useState } from 'react';
-import { ChangeEventHandler, ChangeEvent, FormEventHandler } from 'react';
+import { ChangeEventHandler, FormEventHandler } from 'react';
 
 
 import Box from '@mui/material/Box';
 import {TextField, Typography, Button} from '@mui/material';
-import axios from 'axios';
+import { createHandler } from '../../utils/handler-utils';
+import { checkEmail, checkPassword } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/api-actions';
 
-const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const MIN_PASSWORD_LENGTH = 6;
-
-
-const BASE_URL = 'http://localhost:5000/api/';
-
-
-const createAPI = () => {
-  const api = axios.create({baseURL: BASE_URL});
-  return api;
-};
-
-
-const api = createAPI();
-
-type AddUserType = {email: string, password: string}
-
-const addNewUser = async({email, password} : AddUserType) => {
-  api.post('/users/login', {email, password});
-
-
-};
-
-
-type CreateHandlerType = {
-  evt: ChangeEvent<HTMLInputElement>,
-  setValue: (x: string) => void,
-  setError: (x: boolean) => void,
-  setLabel: (x: string) => void,
-  setHelper: (x: string) => void,
-  checkValue: (x: string) => boolean,
-  helperText: string
-}
-
-const createHandler = ({evt, setValue, setError, setLabel, setHelper, checkValue, helperText} : CreateHandlerType) => {
-  const value = evt.currentTarget.value;
-  if (value) {
-    setValue(value);
-    setError(!checkValue(value));
-    setLabel(checkValue(value) ? '' : 'Error');
-    setHelper(checkValue(value) ? '' : helperText);
-  } else {
-    setValue('');
-    setError(false);
-    setLabel('');
-    setHelper('');
-  }
-};
-
-const checkEmail = (email: string): boolean => EMAIL_PATTERN.test(String(email).toLowerCase());
-const checkPassword = (password: string): boolean => password.length >= MIN_PASSWORD_LENGTH;
 
 const HelperText = {
   Email: 'it is not email',
@@ -75,6 +28,12 @@ const AuthPage = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordLabel, setPasswordLabel] = useState('');
   const [passwordHelper, setPasswordHelper] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   // const emailRef = useRef<React.LegacyRef<HTMLInputElement> | undefined>(undefined);
@@ -100,7 +59,9 @@ const AuthPage = () => {
       setPasswordHelper(HelperText.Password);
     }
     if (checkEmail(email) && checkPassword(password)) {
-      addNewUser({email, password});
+      const redirect = () => navigate('/');
+
+      dispatch(login({email, password}, redirect, setErrorMessage ));
     }
   };
 
@@ -144,10 +105,14 @@ const AuthPage = () => {
             required
           />
         </div>
+
+
         <div style={{display: 'flex', justifyContent: 'center'}}>
-          <Button type='submit' color='success' style={{border: 'solid black 2px'}}>
-            register
+          <Button type='submit' variant="contained" size="large" style={{margin: '15px'}}>
+            login
           </Button>
+          <p style={{width: '100%', textAlign: 'center', color: 'red', fontWeight: 'bold'}}>{errorMessage}</p>
+
         </div>
 
       </Box>

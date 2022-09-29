@@ -1,9 +1,13 @@
 import { Router } from 'express';
-import { controller } from '../controller';
+import { contactController } from '../controllers/contact-controller';
+import { checkAuth } from '../middlewares/check-auth';
+
 
 const contactsRouter = Router();
 
-contactsRouter.get('/', controller.getContacts)
-
+contactsRouter.get('/', checkAuth, contactController.getContacts);
+contactsRouter.post('/', checkAuth, contactController.addContact);
+contactsRouter.delete('/:id', checkAuth, contactController.deleteContact);
+contactsRouter.put('/:id', checkAuth, contactController.putContact);
 
 export {contactsRouter};

@@ -1,20 +1,39 @@
-import {CardContent, Typography} from '@mui/material';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-import { Link } from 'react-router-dom';
+import {Button, Grid, Typography} from '@mui/material';
+import { useDeleteContactMutation } from '../../store/contacts-api/contacts-api';
+import ContactModal from '../modal/modal';
+import { useEffect, useState } from 'react';
+import { ContactType } from '../../types/types';
+import { toast } from 'react-toastify';
 
-type CardType = {
-  id: string,
-  name: string,
-  email: string,
-  phone: string
-}
 
-const ContactCard = ({card} : {card: CardType}) => {
+const ContactCard = ({contact} : {contact: ContactType}) => {
 
-  const { id, name, email, phone } = card;
+
+  const [isModalOpened, setModalOpen] = useState(false);
+
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
+
+  const [deleteContact, {isSuccess, isError}] = useDeleteContactMutation();
+
+  const { id, name, email, phone } = contact;
+
+  const handleDeleteContactClick = async() => {
+    await deleteContact(id);
+  };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('cannot delete this contact');
+    }
+    if (isSuccess) {
+      toast.success('this contact was deleted');
+    }
+  }, [isError, isSuccess]);
+
 
   return (
-    <CardContent>
+    <Grid item sm={6} xs={12} md={4}>
       <Typography sx={{ fontSize: 20 }} gutterBottom>
         Name: <b>{name}</b>
       </Typography>
@@ -24,11 +43,16 @@ const ContactCard = ({card} : {card: CardType}) => {
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
         Phone number: <b>{phone}</b>
       </Typography>
-      <Typography sx={{ mb: 1 }} color="text.secondary">
-        <Link to={`/contacts/${id}`} style={{display: 'flex', color: '#1976d2', textDecoration: 'none'}}>to contact page <DoubleArrowIcon /></Link>
+      <Button variant="outlined" color="error" size='small' fullWidth onClick={handleDeleteContactClick}>
+          Delete Contact
+      </Button>
+      <Typography sx={{ mb: 1.5 }}></Typography>
 
-      </Typography>
-    </CardContent>
+      <Button variant="outlined" color="success" size='small' fullWidth onClick={handleModalOpen}>
+          Change Contact
+      </Button>
+      <ContactModal handleClose={handleModalClose} handleOpen={handleModalOpen} open={isModalOpened} contact={contact}/>
+    </Grid>
   );
 };
 

@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, memo } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { ReducerName, ReducerType } from '../../store/store';
 import { addSearchAction } from '../../store/actions';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -76,11 +77,12 @@ const SearchPanel = () => {
 
   const handleSearchInput: ChangeEventHandler<HTMLInputElement> = (evt) => setSearch(evt.currentTarget.value);
 
+  // console.log('SP');
 
-  const x = 'x';
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" >
         <Toolbar>
           <Typography
             variant="h6"
@@ -88,7 +90,7 @@ const SearchPanel = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Contact Search {x}
+            Contact Search
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -97,6 +99,7 @@ const SearchPanel = () => {
 
 
             <StyledInputBase
+              autoFocus
               placeholder="Search… name or email"
               inputProps={{ 'aria-label': 'search' }}
               onChange={handleSearchInput}
@@ -111,4 +114,4 @@ const SearchPanel = () => {
 };
 
 
-export default SearchPanel;
+export default memo(SearchPanel) ;

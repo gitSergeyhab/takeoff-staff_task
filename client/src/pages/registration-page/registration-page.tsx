@@ -104,7 +104,7 @@ const RegistrationPage = () => {
           />
         </div>
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-          <Button type='submit' color='success' style={{border: 'solid black 2px'}}>
+          <Button type='submit' variant="outlined" size="large" style={{margin: '15px'}}>
             register
           </Button>
           <p style={{width: '100%', textAlign: 'center', color: 'red', fontWeight: 'bold'}}>{errorMessage}</p>

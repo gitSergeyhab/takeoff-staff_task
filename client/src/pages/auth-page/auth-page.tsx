@@ -6,22 +6,10 @@ import { ChangeEventHandler, ChangeEvent, FormEventHandler } from 'react';
 import Box from '@mui/material/Box';
 import {TextField, Typography, Button} from '@mui/material';
 // import axios, { AxiosError } from 'axios';
-import { api } from '../../service/api';
 import { checkEmail, checkPassword } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
-import { login, registration } from '../../store/api-actions';
-import { AnyAction } from '@reduxjs/toolkit';
+import { login } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
-
-
-type AddUserType = {email: string, password: string}
-
-const addNewUser = async({email, password} : AddUserType) => {
-  api.post('/users/registration', {email, password})
-    .then(({data}) => console.log(data))
-    .catch((err) => console.log(err.response.data));
-
-};
 
 
 type CreateHandlerType = {

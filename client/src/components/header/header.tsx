@@ -42,6 +42,8 @@ const Header = () => {
     dispatch(removeUserAction());
   };
 
+  // console.log('Header');
+
 
   return (
     <header style={{display: 'flex', justifyContent: 'center'}}>
