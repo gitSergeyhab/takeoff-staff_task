@@ -1,9 +1,8 @@
-DROP DATABASE IF EXISTS takeoff_staff2;
+DROP DATABASE IF EXISTS takeoff_staff;
 
-CREATE DATABASE takeoff_staff2;
+CREATE DATABASE takeoff_staff;
 
-use takeoff_staff2;
-SELECT * from users;
+use takeoff_staff;
 
 CREATE TABLE users ( 
     id INT PRIMARY KEY AUTO_INCREMENT, 
@@ -19,10 +18,6 @@ CREATE TABLE contacts (
     email VARCHAR(255) NOT NULL
     );
 
-INSERT INTO users (email, password) VALUES 
-    ('no-mail@qq.com', 'pas-no-mail@qq.com'), 
-    ('super-alex@qq.com', 'pas-super-alex@qq.com'), 
-    ('goodman@qq.com', 'pas-goodman@qq.com');
 
 INSERT INTO contacts (name, email, phone) VALUES 
     ('alex', 'no-mail@qq.com', '1411-22-22-22'), 

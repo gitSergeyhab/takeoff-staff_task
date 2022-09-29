@@ -27,9 +27,9 @@ export const contactsApi = createApi({
   endpoints: (build) => ({
     getContacts: build.query<ContactType[], unknown>({
       query: (search) => `?q=${search}`,
-      // providesTags: (result) => result ?
-      //   [ ...result.map(({ id }) => ({ type: TagType.Contacts, id } as const)), { type: TagType.Contacts, id: 'LIST' } ] :
-      //   [ { type: TagType.Contacts, id: 'LIST' } ],
+      providesTags: (result) => result ?
+        [ ...result.map(({ id }) => ({ type: TagType.Contacts, id } as const)), { type: TagType.Contacts, id: 'LIST' } ] :
+        [ { type: TagType.Contacts, id: 'LIST' } ],
     }),
 
     postContact: build.mutation({
@@ -38,21 +38,15 @@ export const contactsApi = createApi({
         method: 'POST',
         body,
       }),
-      // invalidatesTags: [{type: TagType.Comments, id: 'LIST'}, {type: TagType.Films, id: 'LIST'}],
+      invalidatesTags: [{type: TagType.Contacts, id: 'LIST'}],
     }),
 
     deleteContact: build.mutation({
       query: (id) => ({
         url: `/${id}`,
         method: 'DELETE',
-        // responseHandler: (response) => response.text(),
       }),
-      // invalidatesTags: (_, error) => {
-      //   if (error?.status && error.status === 404) {
-      //     return [];
-      //   }
-      //   return [{type: TagType.Comments, id: 'LIST'}, {type: TagType.Films, id: 'LIST'}];
-      // },
+      invalidatesTags: [{type: TagType.Contacts, id: 'LIST'}],
     }),
 
     putContact: build.mutation({
@@ -61,7 +55,7 @@ export const contactsApi = createApi({
         method: 'PUT',
         body,
       }),
-      // invalidatesTags: [{type: TagType.Films, id: 'LIST'}],
+      invalidatesTags: [{type: TagType.Contacts, id: 'LIST'}],
     }),
   })
 });

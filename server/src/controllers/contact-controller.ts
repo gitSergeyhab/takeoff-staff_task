@@ -11,7 +11,8 @@ class ContactController {
             const contacts = await sequelize.query(
                 `
                 SELECT * FROM contacts
-                WHERE name LIKE :search OR email LIKE :search;
+                WHERE name LIKE :search OR email LIKE :search
+                ORDER BY id;
                 `,
                 { 
                     replacements: {search: `%${q}%`},

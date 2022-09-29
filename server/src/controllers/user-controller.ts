@@ -46,7 +46,8 @@ class UserController {
             );
     
             return res.status(201).json({message: 'user created'})
-        } catch {
+        } catch (err) {
+            console.log(err)
             return res.status(500).json({message: 'server registration error'})
         }
 
@@ -82,7 +83,8 @@ class UserController {
             const token = createToken({email});
     
             return res.status(201).json({token, email, id: ((users[0] as unknown) as User).id})
-          } catch {
+        } catch (err) {
+            console.log(err)
             return res.status(500).json({message: 'login error'})
           }
         } 
