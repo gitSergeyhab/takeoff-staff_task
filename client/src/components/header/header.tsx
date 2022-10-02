@@ -1,5 +1,3 @@
-
-
 import {useState} from 'react';
 
 import Box from '@mui/material/Box';
@@ -18,6 +16,7 @@ import { ReducerName, ReducerType } from '../../store/store';
 import { useDispatch } from 'react-redux';
 import { removeUserAction } from '../../store/actions';
 import { removeUserFromStorage } from '../../utils/storage-utils';
+import { AppPath } from '../../const';
 
 
 const Header = () => {
@@ -27,7 +26,6 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
-
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -42,15 +40,12 @@ const Header = () => {
     dispatch(removeUserAction());
   };
 
-  // console.log('Header');
-
-
   return (
-    <header style={{display: 'flex', justifyContent: 'center'}}>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+    <header className='header'>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', gap: '14px' }}>
 
-        <Typography sx={{ minWidth: 100 }}><Link className='header__link' to={'/'}>Contacts</Link></Typography>
-        <Typography sx={{ minWidth: 100 }}><Link className='header__link' to={'/registration'}>Registration</Link></Typography>
+        <Typography sx={{ minWidth: 100, fontSize:'21px' }}><Link className='header__link' to={AppPath.Contacts}>Contacts</Link></Typography>
+        <Typography sx={{ minWidth: 100, fontSize:'21px' }}><Link className='header__link' to={AppPath.Registration}>Registration</Link></Typography>
 
 
         <Tooltip title="Account settings">
@@ -64,8 +59,8 @@ const Header = () => {
           >
             {
               user ?
-                <Typography sx={{ minWidth: 100, fontWeight: 'bold' }}> {user.email} </Typography> :
-                <Typography sx={{ minWidth: 100 }}><Link className='header__link' to={'/auth'}>Login</Link></Typography>
+                <Typography sx={{ minWidth: 100, fontWeight: 'bold', fontSize:'21px' }}> {user.email} </Typography> :
+                <Typography sx={{ minWidth: 100, fontSize:'21px' }}><Link className='header__link' to={AppPath.Auth}>Login</Link></Typography>
             }
 
 
@@ -110,9 +105,6 @@ const Header = () => {
         {
           user ? <MenuItem onClick={handleLogoutClick}> <Avatar /> Logout</MenuItem> : null
         }
-
-        {/* </Link> */}
-
 
       </Menu>
     </header>

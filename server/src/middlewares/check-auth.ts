@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
+import { AUTH_TOKEN } from "../const";
 
 
-const AUTH_TOKEN = 'auth-token';
+
 
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction  ) => {

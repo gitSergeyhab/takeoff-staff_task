@@ -1,0 +1,13 @@
+.main {
+  max-width: 660px;
+  min-width: 300px;
+  margin: auto;
+  padding: 200px 0;
+}
+
+
+.auth-btn-block {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: space-between;
+}

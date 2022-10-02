@@ -19,7 +19,7 @@ const ContactsPage = () => {
       <Container>
         <div style={{display:'flex', justifyContent:'center', paddingTop: '20px'}}>
           <NewContactBtn handleOpen={handleModalOpen}/>
-          <ContactModal handleClose={handleModalClose} handleOpen={handleModalOpen} open={isModalOpened} contact={null}/>
+          <ContactModal handleClose={handleModalClose} open={isModalOpened} contact={null}/>
         </div>
         <ContactsSection/>
       </Container>

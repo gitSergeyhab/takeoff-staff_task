@@ -25,7 +25,7 @@ export const contactsApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    getContacts: build.query<ContactType[], unknown>({
+    getContacts: build.query<ContactType[], string>({
       query: (search) => `?q=${search}`,
       providesTags: (result) => result ?
         [ ...result.map(({ id }) => ({ type: TagType.Contacts, id } as const)), { type: TagType.Contacts, id: 'LIST' } ] :

@@ -20,15 +20,15 @@ CREATE TABLE contacts (
 
 
 INSERT INTO contacts (name, email, phone) VALUES 
-    ('alex', 'no-mail@qq.com', '1411-22-22-22'), 
-    ('ben', 'super-ben@qq.com', '3333-44-55-66'), 
-    ('cavin', 'cavingoodman@qq.com', '666-777-828-99'),
-    ('david', 'david-mail@qq.com', '111-22-22-122'), 
-    ('elen', 'elen-alex@qq.com', '333-244-55-66'), 
-    ('frank', 'goodman@qq.com', '666-777-88-992'),
-    ('greg', 'no-greg@qq.com', '111-22-232-22'), 
-    ('hanry', 'super-hanry@qq.com', '3233-44-55-66'), 
-    ('izabel', 'goodman@izabel.com', '666-7377-88-99'),
-    ('john', 'no-mail@john.com', '111-22-242-22'), 
-    ('klaudia', 'super-klaudia@qq.com', '333-444-55-66'), 
-    ('linda', 'goodman@linda.com', '6636-777-88-99');
+    ('alex', 'no-mail@qq.com', '89998887766'), 
+    ('ben', 'super-ben@qq.com', '89998881166'), 
+    ('cavin', 'cavingoodman@qq.com', '88008887766'),
+    ('david', 'david-mail@qq.com', '89998887711'), 
+    ('elen', 'elen-alex@qq.com', '89998887722'), 
+    ('frank', 'goodman@qq.com', '89998887733'),
+    ('greg', 'no-greg@qq.com', '89998887744'), 
+    ('hanry', 'super-hanry@qq.com', '89998887755'), 
+    ('izabel', 'goodman@izabel.com', '89998887777'),
+    ('john', 'no-mail@john.com', '89998887799'), 
+    ('klaudia', 'super-klaudia@qq.com', '899988877612'), 
+    ('linda', 'goodman@linda.com', '89998887713');

@@ -1,41 +1,12 @@
 
-import { useState } from 'react';
-import { ChangeEventHandler, ChangeEvent, FormEventHandler } from 'react';
-
-
-import Box from '@mui/material/Box';
-import {TextField, Typography, Button} from '@mui/material';
-// import axios, { AxiosError } from 'axios';
-import { checkEmail, checkPassword } from '../../utils/utils';
+import { useState, ChangeEventHandler, FormEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
-
-
-type CreateHandlerType = {
-  evt: ChangeEvent<HTMLInputElement>,
-  setValue: (x: string) => void,
-  setError: (x: boolean) => void,
-  setLabel: (x: string) => void,
-  setHelper: (x: string) => void,
-  checkValue: (x: string) => boolean,
-  helperText: string
-}
-
-const createHandler = ({evt, setValue, setError, setLabel, setHelper, checkValue, helperText} : CreateHandlerType) => {
-  const value = evt.currentTarget.value;
-  if (value) {
-    setValue(value);
-    setError(!checkValue(value));
-    setLabel(checkValue(value) ? '' : 'Error');
-    setHelper(checkValue(value) ? '' : helperText);
-  } else {
-    setValue('');
-    setError(false);
-    setLabel('');
-    setHelper('');
-  }
-};
+import { TextField, Typography, Button, Box } from '@mui/material';
+import { login } from '../../store/api-actions';
+import { AppPath } from '../../const';
+import { checkEmail, checkPassword } from '../../utils/utils';
+import { createHandler } from '../../utils/handler-utils';
 
 
 const HelperText = {
@@ -89,19 +60,19 @@ const AuthPage = () => {
   };
 
   return (
-    <main style={{display: 'flex', justifyContent: 'center', width: '100%', padding: '10% 0'}}>
+    <main className={'main'}>
 
       <Box
         onSubmit={handleSubmit}
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '100%' },
+          '& .MuiTextField-root': { mb: 1, width: '100%' },
         }}
         noValidate
 
         autoComplete="off"
       >
-        <Typography variant="h1" gutterBottom>
+        <Typography variant="h1" textAlign={'center'} gutterBottom fontSize={50}>
         Authorization
         </Typography>
         <div>
@@ -128,11 +99,26 @@ const AuthPage = () => {
             required
           />
         </div>
-        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-          <Button type='submit' color='success' style={{border: 'solid black 2px'}}>
-            login
+        <div className='auth-btn-block'>
+
+          <Button
+            variant="outlined" type='submit' color='success' size='small' style={{width: '40%'}}
+          >
+          Sign In
           </Button>
-          <p style={{width: '100%', textAlign: 'center', color: 'red', fontWeight: 'bold'}}>{errorMessage}</p>
+
+          <Typography variant="subtitle1" gutterBottom>
+        or
+          </Typography>
+          <Button
+            variant="outlined" type='button' color='warning' size='small' style={{width: '40%'}}
+            onClick={() => navigate(AppPath.Registration)}
+          >
+          Sign Up
+          </Button>
+          <Typography variant='subtitle1' textAlign={'center'} width={'100%'} color='red' margin={'auto'}>
+            {errorMessage}
+          </Typography>
         </div>
 
       </Box>

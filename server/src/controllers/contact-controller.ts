@@ -40,7 +40,6 @@ class ContactController {
                 }
                 ); 
     
-    
             return res.status(201).json({message: 'contact crated'})
         } catch {
             return res.status(500).json({message: 'server add contact error'})
@@ -60,7 +59,6 @@ class ContactController {
                     type: 'DELETE'
                 }
                 ); 
-    
             return res.status(204).json({message: 'contact deleted'})
         } catch {
             return res.status(500).json({message: 'server delete contact error'})
@@ -82,9 +80,9 @@ class ContactController {
                 }
                 ); 
     
-            return res.status(204).json({message: 'contact deleted'})
+            return res.status(200).json({message: 'contact was changed'})
         } catch {
-            return res.status(500).json({message: 'server delete contact error'})
+            return res.status(500).json({message: 'server change contact error'})
         }
       }
 }

@@ -64,22 +64,23 @@ const RegistrationPage = () => {
   };
 
   return (
-    <main style={{display: 'flex', justifyContent: 'center', width: '100%', padding: '10% 0'}}>
+    <main className={'main'}>
 
       <Box
         onSubmit={handleSubmit}
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '100%' },
+          '& .MuiTextField-root': { width: '100%', mb: 1 },
         }}
+        boxSizing={'border-box'}
         noValidate
 
         autoComplete="off"
       >
-        <Typography variant="h1" gutterBottom>
+        <Typography variant="h1" textAlign={'center'} gutterBottom fontSize={50}>
         Registration
         </Typography>
-        <div>
+        <div style={{ boxSizing: 'border-box'}}>
           <TextField
             error={emailError}
             id="outlined-error"
@@ -103,8 +104,8 @@ const RegistrationPage = () => {
             required
           />
         </div>
-        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-          <Button type='submit' variant="outlined" size="large" style={{margin: '15px'}}>
+        <div className='.auth-btn-block'>
+          <Button type='submit' variant="outlined" fullWidth>
             register
           </Button>
           <p style={{width: '100%', textAlign: 'center', color: 'red', fontWeight: 'bold'}}>{errorMessage}</p>

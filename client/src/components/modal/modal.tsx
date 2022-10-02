@@ -1,24 +1,25 @@
 import { Button, Dialog, DialogContent, DialogTitle, TextField, DialogActions } from '@mui/material';
-import { FormEventHandler, useEffect, useRef, useState } from 'react';
+import { FormEventHandler, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import { MIN_NAME_LENGTH } from '../../const';
 import { usePostContactMutation, usePutContactMutation } from '../../store/contacts-api/contacts-api';
 import { ContactType } from '../../types/types';
+import { checkEmail, checkPhone, onErrorResponse, onSuccessResponse } from '../../utils/utils';
 
-
-const getValueFromInput = (ref: React.RefObject<HTMLInputElement>): string => ref.current?.querySelector('input')?.value || '';
 
 type ContactModalProps = {
-  handleOpen: () => void,
   handleClose: () => void,
   open: boolean,
   contact: ContactType | null
 }
 
+const getValueFromInput = (ref: React.RefObject<HTMLInputElement>): string => ref.current?.querySelector('input')?.value || '';
 
-const ContactModal = ({handleOpen, contact, handleClose, open}: ContactModalProps) => {
 
-  const [postContact, {isError: postError, isSuccess: postSuccess}] = usePostContactMutation();
-  const [putContact, {isError: putError, isSuccess: putSuccess}] = usePutContactMutation();
+const ContactModal = ({ contact, handleClose, open}: ContactModalProps) => {
+
+  const [postContact] = usePostContactMutation();
+  const [putContact] = usePutContactMutation();
 
 
   const nameRef = useRef<HTMLInputElement>(null);
@@ -27,18 +28,40 @@ const ContactModal = ({handleOpen, contact, handleClose, open}: ContactModalProp
 
   const getFomValues = () => ({name: getValueFromInput(nameRef), email: getValueFromInput(emailRef), phone: getValueFromInput(phoneRef)});
 
-  // const [errorMessage, setErrorMessage] = useState('errorMessage');
   const [isSubmitDisable, setSubmitDisable] = useState(true);
+
 
   const handleSubmit:FormEventHandler = async (evt) => {
     evt.preventDefault();
+
     const {email, name, phone} = getFomValues();
-    if (contact) {
-      await putContact({body: {email, name, phone}, id: contact.id });
-    } else {
-      await postContact({name, email, phone});
+
+    if (!checkPhone(phone) || !checkEmail(email) || name.length < MIN_NAME_LENGTH) {
+      if (!checkPhone(phone)) {
+        toast.warn(`incorrect number: ${phone}`);
+      }
+
+      if (!checkEmail(email)) {
+        toast.warn(`incorrect email: ${email}`);
+      }
+
+      if (name.length < MIN_NAME_LENGTH) {
+        toast.warn(`incorrect name: ${name}`);
+      }
+      return;
     }
 
+    if (contact) {
+      await putContact({body: {email, name, phone}, id: contact.id })
+        .unwrap()
+        .then((data) => onSuccessResponse(data, handleClose))
+        .catch((data) => onErrorResponse(data, handleClose));
+    } else {
+      await postContact({name, email, phone})
+        .unwrap()
+        .then((data) => onSuccessResponse(data, handleClose))
+        .catch((data) => onErrorResponse(data, handleClose));
+    }
   };
 
   const handleFormChange = () => {
@@ -50,25 +73,12 @@ const ContactModal = ({handleOpen, contact, handleClose, open}: ContactModalProp
     }
   };
 
+
   const defaultName = contact ? contact.name : '';
   const defaultEmail = contact ? contact.email : '';
   const defaultPhone = contact ? contact.phone : '';
 
   const buttonText = contact ? 'change contact' : 'add contact';
-
-  useEffect(() => {
-    if (postError) {toast.error('cannot add this contact');}
-    if (postSuccess) {toast.success('this contact was added');}
-    if (putError) {toast.error('cannot change this contact');}
-    if (putSuccess) {toast.success('this contact was changed');}
-
-  }, [postError, postSuccess, putError, putSuccess]);
-
-  useEffect(() => {
-    if (postSuccess || putSuccess) {
-      handleClose();
-    }
-  });
 
 
   return (
@@ -84,7 +94,6 @@ const ContactModal = ({handleOpen, contact, handleClose, open}: ContactModalProp
             ref={nameRef}
             fullWidth
             defaultValue={defaultName}
-
           />
           <TextField
             required
@@ -98,7 +107,7 @@ const ContactModal = ({handleOpen, contact, handleClose, open}: ContactModalProp
           />
           <TextField
             id="phone"
-            placeholder='phone'
+            placeholder='phone (with code)'
             type='tel'
             ref={phoneRef}
             fullWidth
@@ -119,7 +128,6 @@ const ContactModal = ({handleOpen, contact, handleClose, open}: ContactModalProp
           </DialogActions>
         </form>
 
-        {/* <Typography textAlign={'center'} color='red' paddingTop={2}>{errorMessage}</Typography> */}
 
       </DialogContent>
     </Dialog>

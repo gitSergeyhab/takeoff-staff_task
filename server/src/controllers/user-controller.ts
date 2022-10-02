@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import sequelize from '../db'
+import { AUTH_TOKEN } from "../const";
 
 
 const SALT = 6;
@@ -87,6 +88,25 @@ class UserController {
             console.log(err)
             return res.status(500).json({message: 'login error'})
           }
+        } 
+
+
+        async auth (req: Request, res: Response) {
+
+            try {
+                const token = req.headers[AUTH_TOKEN] as string;
+                const dataFromToken = jwt.verify( token, process.env.SECRET_KEY);
+        
+                if (!dataFromToken) {
+                    return res.status(401).json(false)
+                }
+
+                return res.status(200).json(true)
+            } catch {
+                return res.status(401).json(false)
+            }
+
+
         } 
 }
 
