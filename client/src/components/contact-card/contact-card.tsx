@@ -1,15 +1,10 @@
-import {Button, Grid, Typography} from '@mui/material';
+import { useState } from 'react';
+import { Button, Grid, Typography } from '@mui/material';
+import { toast } from 'react-toastify';
 import { useDeleteContactMutation } from '../../store/contacts-api/contacts-api';
 import ContactModal from '../modal/modal';
-import { useState } from 'react';
 import { ContactType } from '../../types/types';
-import { toast } from 'react-toastify';
-
-
-const Message = {
-  Success: 'this contact was deleted',
-  Error: 'cannot delete this contact'
-};
+import { Message } from '../../const';
 
 
 const ContactCard = ({contact} : {contact: ContactType}) => {
@@ -25,8 +20,8 @@ const ContactCard = ({contact} : {contact: ContactType}) => {
 
   const handleDeleteContactClick = async() => {
     await deleteContact(id).unwrap()
-      .then(() => toast.success(Message.Success))
-      .catch(() => toast.error(Message.Error));
+      .then(() => toast.success(Message.DeleteSuccess))
+      .catch(() => toast.error(Message.DeleteError));
   };
 
 
@@ -46,7 +41,7 @@ const ContactCard = ({contact} : {contact: ContactType}) => {
       </Button>
       <Typography sx={{ mb: 1.5 }}></Typography>
 
-      <Button variant="outlined" color="success" size='small' fullWidth onClick={handleModalOpen}>
+      <Button variant="outlined" color="primary" size='small' fullWidth onClick={handleModalOpen}>
           Change Contact
       </Button>
       <ContactModal handleClose={handleModalClose} open={isModalOpened} contact={contact}/>

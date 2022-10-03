@@ -73,7 +73,7 @@ const AuthPage = () => {
         autoComplete="off"
       >
         <Typography variant="h1" textAlign={'center'} gutterBottom fontSize={50}>
-        Authorization
+          Authorization
         </Typography>
         <div>
           <TextField

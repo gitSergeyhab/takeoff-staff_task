@@ -14,16 +14,14 @@ const ContactsPage = () => {
   const handleModalClose = () => setModalOpen(false);
 
   return (
-    <main>
+    <>
       <SearchPanel/>
-      <Container>
-        <div style={{display:'flex', justifyContent:'center', paddingTop: '20px'}}>
-          <NewContactBtn handleOpen={handleModalOpen}/>
-          <ContactModal handleClose={handleModalClose} open={isModalOpened} contact={null}/>
-        </div>
+      <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: 2}}>
+        <NewContactBtn handleOpen={handleModalOpen}/>
+        <ContactModal handleClose={handleModalClose} open={isModalOpened} contact={null}/>
         <ContactsSection/>
       </Container>
-    </main>
+    </>
   );};
 
 export default ContactsPage;

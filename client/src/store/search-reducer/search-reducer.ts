@@ -12,3 +12,4 @@ const initialStore: InitialStore = {
 export const searchReducer = createReducer(initialStore, (builder) => {
   builder.addCase(addSearchAction, (state, action) => {state.search = action.payload;});
 });
+

@@ -23,3 +23,6 @@ export const store = configureStore({
 });
 
 export type ReducerType = ReturnType<typeof reducer>;
+
+export const getUser = (state: ReducerType) => state[ReducerName.User].user;
+export const getSearchValue = (state: ReducerType) => state[ReducerName.Search].search;

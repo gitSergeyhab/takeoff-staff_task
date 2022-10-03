@@ -1,27 +1,19 @@
-import {useState} from 'react';
-
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import { Link } from 'react-router-dom';
-
-import './header.scss';
-import { useSelector } from 'react-redux';
-import { ReducerName, ReducerType } from '../../store/store';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { Toolbar, AppBar, Avatar, Menu, MenuItem, IconButton, Typography,Tooltip } from '@mui/material';
+import { getUser } from '../../store/store';
 import { removeUserAction } from '../../store/actions';
 import { removeUserFromStorage } from '../../utils/storage-utils';
 import { AppPath } from '../../const';
 
+import './header.scss';
+
 
 const Header = () => {
+  const locate = useLocation();
 
-  const user = useSelector((state: ReducerType) => state[ReducerName.User].user);
+  const user = useSelector(getUser);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
 
@@ -41,32 +33,46 @@ const Header = () => {
   };
 
   return (
-    <header className='header'>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', gap: '14px' }}>
+    <header>
+      <AppBar position="static" color={'transparent'}>
+        <Toolbar sx={{ justifyContent: 'space-around' }}>
 
-        <Typography sx={{ minWidth: 100, fontSize:'21px' }}><Link className='header__link' to={AppPath.Contacts}>Contacts</Link></Typography>
-        <Typography sx={{ minWidth: 100, fontSize:'21px' }}><Link className='header__link' to={AppPath.Registration}>Registration</Link></Typography>
+          <Typography sx={{ minWidth: 100, fontSize:'21px' }}>
+            <Link className={`header__link ${locate.pathname === AppPath.Contacts ? 'header__link--active' : ''}`} to={AppPath.Contacts}>
+              Contacts
+            </Link>
+          </Typography>
+          <Typography sx={{ minWidth: 100, fontSize:'21px' }}>
+            <Link className={`header__link ${locate.pathname === AppPath.Registration ? 'header__link--active' : ''}`} to={AppPath.Registration}>
+              Registration
+            </Link>
+          </Typography>
+
+          <Tooltip title="Account settings">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              {
+                user ?
+                  <Typography sx={{ minWidth: 100, fontWeight: 'bold', fontSize:'21px' }}> {user.email} </Typography> :
+                  <Typography sx={{ minWidth: 100, fontSize:'21px' }}>
+                    <Link className={`header__link ${locate.pathname === AppPath.Auth ? 'header__link--active' : ''}`} to={AppPath.Auth}>
+                      Login
+                    </Link>
+                  </Typography>
+              }
 
 
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            {
-              user ?
-                <Typography sx={{ minWidth: 100, fontWeight: 'bold', fontSize:'21px' }}> {user.email} </Typography> :
-                <Typography sx={{ minWidth: 100, fontSize:'21px' }}><Link className='header__link' to={AppPath.Auth}>Login</Link></Typography>
-            }
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
 
-
-          </IconButton>
-        </Tooltip>
-      </Box>
+      </AppBar>
       <Menu
         anchorEl={anchorEl}
         id="account-menu"

@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { ReducerName, ReducerType } from '../../store/store';
+import { getUser } from '../../store/store';
 
 const Private = ({children} : {children: JSX.Element}) => {
 
-  const user = useSelector((state: ReducerType) => state[ReducerName.User].user);
+  const user = useSelector(getUser);
 
   useEffect(() => {
     if (!user) {

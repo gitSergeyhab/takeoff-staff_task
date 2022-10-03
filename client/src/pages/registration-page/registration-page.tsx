@@ -1,21 +1,13 @@
 
-import { useState } from 'react';
-import { ChangeEventHandler, FormEventHandler } from 'react';
-
-
-import Box from '@mui/material/Box';
-import {TextField, Typography, Button} from '@mui/material';
-import { checkEmail, checkPassword } from '../../utils/utils';
+import { useState, ChangeEventHandler, FormEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { TextField, Typography, Button, Box } from '@mui/material';
+import { checkEmail, checkPassword } from '../../utils/utils';
 import { registration } from '../../store/api-actions';
 import { createHandler } from '../../utils/handler-utils';
-import { useNavigate } from 'react-router-dom';
+import { HelperText } from '../../const';
 
-
-const HelperText = {
-  Email: 'it is not email',
-  Password: 'at least 6 characters'
-};
 
 const RegistrationPage = () => {
 
@@ -80,7 +72,7 @@ const RegistrationPage = () => {
         <Typography variant="h1" textAlign={'center'} gutterBottom fontSize={50}>
         Registration
         </Typography>
-        <div style={{ boxSizing: 'border-box'}}>
+        <div>
           <TextField
             error={emailError}
             id="outlined-error"
@@ -108,7 +100,9 @@ const RegistrationPage = () => {
           <Button type='submit' variant="outlined" fullWidth>
             register
           </Button>
-          <p style={{width: '100%', textAlign: 'center', color: 'red', fontWeight: 'bold'}}>{errorMessage}</p>
+          <Typography variant='subtitle1' textAlign={'center'} width={'100%'} color='red' margin={'auto'}>
+            {errorMessage}
+          </Typography>
         </div>
 
       </Box>

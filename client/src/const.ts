@@ -4,6 +4,10 @@ const PHONE_PATTERN = /^((\+7|7|8)+([0-9]){10})$/;
 const MIN_PASSWORD_LENGTH = 6;
 const MIN_NAME_LENGTH = 3;
 
+const AUTH_TOKEN = 'auth-token';
+
+const NOT_SECRET_KEY = 'no-secret';
+
 
 const enum StatusCode {
   NotAuth = 401,
@@ -26,11 +30,18 @@ const enum Message {
   DefaultError = 'something is wrong...',
   AuthError = 'you are not logged in',
   AuthSuccess = 'you are logged',
-  SignUpSuccess = 'you are registered'
+  SignUpSuccess = 'you are registered',
+  DeleteSuccess = 'this contact was deleted',
+  DeleteError = 'cannot delete this contact'
+}
+
+const enum HelperText {
+  Email = 'it is not email',
+  Password = 'at least 6 characters'
 }
 
 
 export {
-  EMAIL_PATTERN, MIN_PASSWORD_LENGTH, PHONE_PATTERN, MIN_NAME_LENGTH,
-  ServerRoute, Message, AppPath, StatusCode
+  EMAIL_PATTERN, MIN_PASSWORD_LENGTH, PHONE_PATTERN, MIN_NAME_LENGTH, AUTH_TOKEN,
+  ServerRoute, Message, AppPath, StatusCode, HelperText
 };

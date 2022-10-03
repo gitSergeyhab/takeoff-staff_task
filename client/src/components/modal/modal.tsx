@@ -1,10 +1,10 @@
-import { Button, Dialog, DialogContent, DialogTitle, TextField, DialogActions } from '@mui/material';
 import { FormEventHandler, useRef, useState } from 'react';
+import { Button, Dialog, DialogContent, DialogTitle, TextField, DialogActions } from '@mui/material';
 import { toast } from 'react-toastify';
-import { MIN_NAME_LENGTH } from '../../const';
 import { usePostContactMutation, usePutContactMutation } from '../../store/contacts-api/contacts-api';
 import { ContactType } from '../../types/types';
 import { checkEmail, checkPhone, onErrorResponse, onSuccessResponse } from '../../utils/utils';
+import { MIN_NAME_LENGTH } from '../../const';
 
 
 type ContactModalProps = {
@@ -20,7 +20,6 @@ const ContactModal = ({ contact, handleClose, open}: ContactModalProps) => {
 
   const [postContact] = usePostContactMutation();
   const [putContact] = usePutContactMutation();
-
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -82,7 +81,7 @@ const ContactModal = ({ contact, handleClose, open}: ContactModalProps) => {
 
 
   return (
-    <Dialog open={open} onClose={handleClose} aria-describedby={'contact-modal'}>
+    <Dialog open={open} onClose={handleClose} aria-describedby={'contact-modal'} >
       <DialogTitle textAlign={'center'} id='contact-modal'>Required name, email and phone</DialogTitle>
       <DialogContent onChange={handleFormChange}>
         <form onSubmit={handleSubmit}>
@@ -127,8 +126,6 @@ const ContactModal = ({ contact, handleClose, open}: ContactModalProps) => {
 
           </DialogActions>
         </form>
-
-
       </DialogContent>
     </Dialog>
 

@@ -15,5 +15,5 @@ export const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setUserAction, (state, action) => { state.user = action.payload; })
     .addCase(removeUserAction, (state) => { state.user = null; });
-
 });
+

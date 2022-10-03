@@ -1,16 +1,9 @@
-import { ChangeEventHandler, memo } from 'react';
+import { ChangeEventHandler } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-// import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-// import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Toolbar, InputBase, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { ReducerName, ReducerType } from '../../store/store';
+import { getSearchValue } from '../../store/store';
 import { addSearchAction } from '../../store/actions';
 
 
@@ -63,9 +56,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchPanel = () => {
 
-  const defaultSearchValue = useSelector((state: ReducerType) => state[ReducerName.Search].search);
+  const defaultSearchValue = useSelector(getSearchValue);
   const dispatch = useDispatch();
-
 
   const setSearch = (value: string) => {
     if (value) {
@@ -76,9 +68,6 @@ const SearchPanel = () => {
   };
 
   const handleSearchInput: ChangeEventHandler<HTMLInputElement> = (evt) => setSearch(evt.currentTarget.value);
-
-  // console.log('SP');
-
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -97,7 +86,6 @@ const SearchPanel = () => {
               <SearchIcon />
             </SearchIconWrapper>
 
-
             <StyledInputBase
               autoFocus
               placeholder="Search… name or email"
@@ -105,7 +93,6 @@ const SearchPanel = () => {
               onChange={handleSearchInput}
               defaultValue={defaultSearchValue}
             />
-
           </Search>
         </Toolbar>
       </AppBar>
@@ -114,4 +101,4 @@ const SearchPanel = () => {
 };
 
 
-export default memo(SearchPanel) ;
+export default SearchPanel ;

@@ -1,10 +1,10 @@
 import { AnyAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { Message, ServerRoute } from '../const';
-import { ThunkActionResult } from '../types/types';
 import { addUserToStorage, removeUserFromStorage } from '../utils/storage-utils';
 import { setUserAction } from './actions';
+import { ThunkActionResult } from '../types/types';
+import { Message, ServerRoute } from '../const';
 
 
 type DataType = {email: string, password: string}
@@ -54,12 +54,10 @@ const getCheckAuth = (): ThunkActionResult =>
         dispatch(setUserAction(null));
         removeUserFromStorage();
         toast.error(Message.AuthError);
-
       }
     } catch {
       dispatch(setUserAction(null));
       removeUserFromStorage();
-      toast.error(Message.AuthError);
     }
   };
 

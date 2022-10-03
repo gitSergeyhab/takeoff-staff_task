@@ -1,16 +1,16 @@
 import axios, { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
+import { AUTH_TOKEN, Message, StatusCode } from '../const';
 import { removeUserAction } from '../store/actions';
 import { store } from '../store/store';
 import { getUserFromStorage, removeUserFromStorage } from '../utils/storage-utils';
 
+
 const BASE_URL = 'http://localhost:5000/api/';
-const AUTH_TOKEN = 'auth-token';
 
 
 const createAPI = (onAuthError: () => void) => {
-
   const api = axios.create({baseURL: BASE_URL});
-
   api.interceptors.request.use(
     (config) => {
       const user = getUserFromStorage();
@@ -27,11 +27,11 @@ const createAPI = (onAuthError: () => void) => {
     (res) => res,
     (error: AxiosError) => {
       const {response} = error;
-
-      if (response?.status === 401) {
+      if (response?.status === StatusCode.NotAuth) {
         onAuthError();
+      } else {
+        toast.error(Message.DefaultError);
       }
-
       return Promise.reject(error);
     }
   );
@@ -42,6 +42,7 @@ const createAPI = (onAuthError: () => void) => {
 const onAuthError = () => {
   removeUserFromStorage();
   store.dispatch(removeUserAction());
+  toast.error(Message.AuthError);
 };
 
 export const api = createAPI(onAuthError);

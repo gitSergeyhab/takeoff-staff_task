@@ -1,15 +1,14 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { AUTH_TOKEN } from '../../const';
 import { ContactType } from '../../types/types';
 import { getUserFromStorage } from '../../utils/storage-utils';
+
 
 const BASE_URL = 'http://localhost:5000/api/contacts';
 
 const TagType = {
   Contacts: 'Contacts',
 };
-
-
-const AUTH_TOKEN = 'auth-token';
 
 
 export const contactsApi = createApi({

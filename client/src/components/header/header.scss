@@ -1,17 +1,17 @@
 
-.header {
-  display: flex;
-  justify-content: center;
-}
-
-
 .header__link {
   color: #000000;
   text-decoration: none;
 
-  &:hover, &-active {
-    color: blue;
+  &:hover {
+    color: #222222;
     font-weight: bold;
+  }
+
+  &--active {
+    color: #444444;
+    font-weight: bold;
+
   }
 }
 

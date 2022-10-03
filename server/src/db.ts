@@ -14,11 +14,7 @@ const sequelize = new Sequelize(
     process.env.DB_NAME || DEFAULT_DB_NAME,
     process.env.DB_USER || DEFAULT_DB_USER,
     process.env.DB_PASSWORD || DEFAULT_DB_PASSWORD,
-    {
-        dialect,
-        host,
-        port,
-    }
+    { dialect, host, port }
 )
 
 export default sequelize;

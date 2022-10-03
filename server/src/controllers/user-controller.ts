@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import sequelize from '../db'
-import { AUTH_TOKEN } from "../const";
+import { AUTH_TOKEN, NO_SECRET_KEY } from "../const";
 
 
 const SALT = 6;
 
 type User = { id: number, email: string, password: string };
 
-const createToken = ({email} : {email: string}) => jwt.sign({email}, process.env.SECRET_KEY, {expiresIn: '24h'})
+const createToken = ({email} : {email: string}) => jwt.sign({email}, process.env.SECRET_KEY || NO_SECRET_KEY, {expiresIn: '24h'})
 
 
 class UserController {
@@ -17,7 +17,6 @@ class UserController {
       async register (req: Request, res: Response) {
         try {
             const {email, password} = req.body;
-            // throw new Error('AAAAAAA!~~~~~~~~~~!!!!!!!')
 
             const users = await sequelize.query(
                 `
@@ -95,7 +94,7 @@ class UserController {
 
             try {
                 const token = req.headers[AUTH_TOKEN] as string;
-                const dataFromToken = jwt.verify( token, process.env.SECRET_KEY);
+                const dataFromToken = jwt.verify( token, process.env.SECRET_KEY || NO_SECRET_KEY );
         
                 if (!dataFromToken) {
                     return res.status(401).json(false)
