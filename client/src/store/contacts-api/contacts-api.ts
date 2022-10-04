@@ -1,4 +1,4 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { AUTH_TOKEN } from '../../const';
 import { ContactType } from '../../types/types';
 import { getUserFromStorage } from '../../utils/storage-utils';

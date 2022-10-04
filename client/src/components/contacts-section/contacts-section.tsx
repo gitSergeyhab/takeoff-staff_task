@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Grid, Typography } from '@mui/material';
 import { useGetContactsQuery } from '../../store/contacts-api/contacts-api';
 import ContactCard from '../contact-card/contact-card';
-import useDebounce from '../../hooks/use-debounce';
+import { useDebounce } from '../../hooks/use-debounce';
 import { getSearchValue } from '../../store/store';
 import { AppPath, StatusCode } from '../../const';
 import { ScaleLoader } from 'react-spinners';

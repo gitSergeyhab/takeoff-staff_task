@@ -10,7 +10,7 @@ const Private = ({children} : {children: JSX.Element}) => {
 
   useEffect(() => {
     if (!user) {
-      toast.warning('the page "contacts" is not available to unauthorized users');
+      toast.warning('this page is not available to unauthorized users');
     }
 
   });

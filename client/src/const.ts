@@ -6,9 +6,6 @@ const MIN_NAME_LENGTH = 3;
 
 const AUTH_TOKEN = 'auth-token';
 
-const NOT_SECRET_KEY = 'no-secret';
-
-
 const enum StatusCode {
   NotAuth = 401,
   NotFound = 404.

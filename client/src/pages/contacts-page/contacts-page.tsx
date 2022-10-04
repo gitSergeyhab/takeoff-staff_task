@@ -1,9 +1,9 @@
-import SearchPanel from '../../components/search-panel/search-panel';
-import ContactsSection from '../../components/contacts-section/contacts-section';
+import { useState } from 'react';
 import { Container } from '@mui/material';
 import ContactModal from '../../components/modal/modal';
-import { useState } from 'react';
+import ContactsSection from '../../components/contacts-section/contacts-section';
 import NewContactBtn from '../../components/new-contact-btn/new-contact-btn';
+import SearchPanel from '../../components/search-panel/search-panel';
 
 
 const ContactsPage = () => {

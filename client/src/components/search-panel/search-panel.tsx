@@ -59,13 +59,7 @@ const SearchPanel = () => {
   const defaultSearchValue = useSelector(getSearchValue);
   const dispatch = useDispatch();
 
-  const setSearch = (value: string) => {
-    if (value) {
-      dispatch(addSearchAction(value));
-    } else {
-      dispatch(addSearchAction(''));
-    }
-  };
+  const setSearch = (value: string) => dispatch(addSearchAction( value || '' ));
 
   const handleSearchInput: ChangeEventHandler<HTMLInputElement> = (evt) => setSearch(evt.currentTarget.value);
 

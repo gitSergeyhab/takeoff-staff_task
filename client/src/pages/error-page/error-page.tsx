@@ -3,7 +3,7 @@ import { Typography} from '@mui/material';
 import { AppPath } from '../../const';
 
 
-const NotFoundPage = () => (
+const ErrorPage = () => (
   <main className={'main'}>
     <Typography variant="h1" textAlign={'center'} gutterBottom fontSize={40}>
           Error 404
@@ -17,4 +17,4 @@ const NotFoundPage = () => (
   </main>
 );
 
-export default NotFoundPage;
+export default ErrorPage;
