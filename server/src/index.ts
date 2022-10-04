@@ -4,6 +4,7 @@ import cors from 'cors';
 dotenv.config();
 import sequelize from './db';
 import router from './routes';
+import { StatusCode } from './const';
 
 
 const PORT = process.env.PORT || 5000;
@@ -15,14 +16,9 @@ app.use(express.json());
 app.use('/api', router);
 
 
-
 app.get('/', (req, res) => {
-    res.status(200).json({ message: `server started on port ${PORT}` })
+    res.status(StatusCode.Ok).json({ message: `server started on port ${PORT}` })
 })
-
-
-
-
 
 
 const start = async() => {

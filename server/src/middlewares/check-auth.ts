@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
-import { AUTH_TOKEN, NO_SECRET_KEY } from "../const";
+import { AUTH_TOKEN, NO_SECRET_KEY, StatusCode } from "../const";
 
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction  ) => {
@@ -10,12 +10,12 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction  ) => 
         const dataFromToken = jwt.verify( token, process.env.SECRET_KEY || NO_SECRET_KEY );
 
         if (!dataFromToken) {
-            return res.status(401).json({message: 'auth token is incorrect'})
+            return res.status(StatusCode.NotAuthError).json({message: 'auth token is incorrect'})
         }
 
         next();
 
     } catch {
-        return res.status(401).json({message: 'auth token is incorrect'})
+        return res.status(StatusCode.NotAuthError).json({message: 'auth token is incorrect'})
     }
 }

@@ -8,5 +8,4 @@ const router = Router();
 router.use('/contacts', contactsRouter);
 router.use('/users', usersRouter)
 
-
 export default router;

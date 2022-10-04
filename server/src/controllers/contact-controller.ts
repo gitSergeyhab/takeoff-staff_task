@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { StatusCode } from "../const";
 import sequelize from '../db'
 
 
@@ -19,10 +20,10 @@ class ContactController {
                     type: 'SELECT'
                 }
                 );
-            return res.status(200).json(contacts);
+            return res.status(StatusCode.Ok).json(contacts);
 
         } catch {
-            return res.status(500).json({message: 'get contacts error'});
+            return res.status(StatusCode.ServerError).json({message: 'get contacts error'});
         }
       }
 
@@ -42,7 +43,7 @@ class ContactController {
     
             return res.status(201).json({message: 'contact crated'})
         } catch {
-            return res.status(500).json({message: 'server add contact error'})
+            return res.status(StatusCode.ServerError).json({message: 'server add contact error'})
         }
       }
 
@@ -61,7 +62,7 @@ class ContactController {
                 ); 
             return res.status(204).json({message: 'contact deleted'})
         } catch {
-            return res.status(500).json({message: 'server delete contact error'})
+            return res.status(StatusCode.ServerError).json({message: 'server delete contact error'})
         }
       }
 
@@ -80,9 +81,9 @@ class ContactController {
                 }
                 ); 
     
-            return res.status(200).json({message: 'contact was changed'})
+            return res.status(StatusCode.Ok).json({message: 'contact was changed'})
         } catch {
-            return res.status(500).json({message: 'server change contact error'})
+            return res.status(StatusCode.ServerError).json({message: 'server change contact error'})
         }
       }
 }
